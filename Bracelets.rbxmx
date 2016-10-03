@@ -1,0 +1,510 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Script" referent="RBX0234E3DAA3DE49F6A09F3CC03B7B37AA">
+		<Properties>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<string name="Name">Glowbands</string>
+			<ProtectedString name="Source"><![CDATA[--//paratroopersoldier
+script.Bracelet.Parent = game.ServerStorage -- take this out if you did this manually
+colors = {
+	'Lavender';
+	'Medium blue';
+	'Grime';
+	'Neon orange';
+	'Bright red';
+	'Lime green';
+	'Hot pink';
+	'Royal purple';
+	'Teal';
+}
+script.TicketGui.ScrollingFrame.CanvasSize = UDim2.new(0,0,0,45*#colors+5)
+function newColorEntry(color)
+	local newColor = Instance.new("TextButton",script.TicketGui.ScrollingFrame)
+	newColor.Size = UDim2.new(0,40,0,40)
+	newColor.BackgroundColor3 = BrickColor.new(color).Color
+	newColor.Name = color
+	newColor.Text = ''
+	newColor.Position = UDim2.new(0.5,-22,0,5)+UDim2.new(0,0,0,45*(#script.TicketGui.ScrollingFrame:GetChildren()-1))
+end
+for k,v in pairs(colors) do
+	newColorEntry(v)
+end
+
+game.Players.PlayerAdded:connect(function(Player)
+	Player.CharacterAdded:connect(function(char)
+		local enterThread = coroutine.wrap(function()
+			if Player and char and char["Right Arm"] and game.ServerStorage.Bracelet then
+				local bracelet = game.ServerStorage.Bracelet:Clone()
+				bracelet.Anchored = false
+				bracelet.BrickColor = BrickColor.new(colors[math.random(1,#colors)])
+				bracelet.Parent = char
+				local w1 = Instance.new("Weld",char)
+				w1.Part0 = char["Right Arm"]
+				w1.Part1 = bracelet
+				w1.C1 = CFrame.new(0,0.6,0)
+				local gui = script.TicketGui:Clone()
+				gui.Parent = Player.PlayerGui
+			end
+		end)
+		enterThread()
+	end)
+end)
+
+colorsFunction = Instance.new("RemoteFunction",game.ReplicatedStorage)
+colorsFunction.Name = "colors"
+function colorsFunction.OnServerInvoke(player, color)
+	if player and player.Character and player.Character["Bracelet"] then
+		local band = player.Character["Bracelet"]
+		band.BrickColor = BrickColor.new(color)
+		return true
+	end
+end
+hideFunction = Instance.new("RemoteFunction",game.ReplicatedStorage)
+hideFunction.Name = "hide"
+function hideFunction.OnServerInvoke(player,transparency)
+	if player and player.Character and player.Character["Bracelet"] then
+		local band = player.Character["Bracelet"]
+		band.Transparency = transparency
+		return true
+	end
+end
+]]></ProtectedString>
+		</Properties>
+		<Item class="UnionOperation" referent="RBX73A0C12C851D4207A8E683175F13B5A3">
+			<Properties>
+				<bool name="Anchored">true</bool>
+				<Content name="AssetId"><url>http://www.roblox.com//asset/?id=268219112</url></Content>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<int name="BrickColor">1001</int>
+				<CoordinateFrame name="CFrame">
+					<X>0.400000006</X>
+					<Y>17.1000004</Y>
+					<Z>22.3999996</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">false</bool>
+				<BinaryString name="ChildData"></BinaryString>
+				<float name="Elasticity">0.5</float>
+				<token name="FormFactor">0</token>
+				<float name="Friction">0.300000012</float>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<Vector3 name="InitialSize">
+					<X>1.20000017</X>
+					<Y>0.200000301</Y>
+					<Z>1.20000005</Z>
+				</Vector3>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<token name="Material">288</token>
+				<BinaryString name="MeshData"></BinaryString>
+				<string name="Name">Bracelet</string>
+				<BinaryString name="PhysicsData"><![CDATA[Q1NHUEhTAwAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgD8YAAAA
+BAAAAGdm5r7OzMw9mpkZP5qZmb7SzMy9mpkZP5qZmb7OzMw9mpkZP5qZmb7RzMw9AwAAP2dm
+5r7XzMy9mpkZP2dm5r7XzMy9BAAAP5qZmb7SzMy9BAAAP2dm5r7OzMw9BAAAPyQAAAAAAAAA
+AQAAAAIAAAADAAAAAgAAAAEAAAADAAAAAAAAAAIAAAAEAAAAAAAAAAUAAAAEAAAABQAAAAEA
+AAAEAAAAAQAAAAAAAAAGAAAAAQAAAAUAAAAGAAAABQAAAAMAAAAGAAAAAwAAAAEAAAAHAAAA
+BQAAAAAAAAAHAAAAAAAAAAMAAAAHAAAAAwAAAAUAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAA
+AAAAAAAAAAAAAAAAAAAAAIA/GAAAAAQAAACbmZk+1szMPZqZGT9oZuY+xczMvZqZGT9oZuY+
+1szMPZqZGT9oZuY+3szMPf7//z6bmZk+28zMPQAAAD+bmZk+xczMvQQAAD+bmZk+yMzMvZqZ
+GT9oZuY+wszMvQQAAD8kAAAAAAAAAAEAAAACAAAAAwAAAAIAAAABAAAAAwAAAAAAAAACAAAA
+BAAAAAUAAAAAAAAABAAAAAAAAAADAAAABAAAAAMAAAAFAAAABgAAAAAAAAAFAAAABgAAAAUA
+AAABAAAABgAAAAEAAAAAAAAABwAAAAEAAAAFAAAABwAAAAUAAAADAAAABwAAAAMAAAABAAAA
+EAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAPxgAAAAEAAAAmpkZv83M
+zD1oZuY+AwAAv9fMzL1oZuY+AwAAv83MzD1oZuY+AQAAv83MzD2amZk+mpkZv8vMzD2amZk+
+mpkZv9TMzL2amZk+mpkZv9fMzL1oZuY+AwAAv9fMzL2amZk+JAAAAAAAAAABAAAAAgAAAAMA
+AAACAAAAAQAAAAMAAAAAAAAAAgAAAAQAAAAFAAAAAAAAAAQAAAAAAAAAAwAAAAQAAAADAAAA
+BQAAAAYAAAAAAAAABQAAAAYAAAAFAAAAAQAAAAYAAAABAAAAAAAAAAcAAAABAAAABQAAAAcA
+AAAFAAAAAwAAAAcAAAADAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA
+AAAAAAAAgD8YAAAABAAAAJuZGb/MzMw9mpmZvgIAAL/YzMy9mpmZvvr//77NzMw9mpmZvvr/
+/77NzMw9Z2bmvpuZGb/MzMw9Z2bmvpuZGb/EzMy9Z2bmvgIAAL/YzMy9Z2bmvpuZGb/IzMy9
+mpmZviQAAAAAAAAAAQAAAAIAAAADAAAAAgAAAAEAAAADAAAAAAAAAAIAAAAEAAAABQAAAAAA
+AAAEAAAAAAAAAAMAAAAEAAAAAwAAAAUAAAAGAAAAAQAAAAUAAAAGAAAABQAAAAMAAAAGAAAA
+AwAAAAEAAAAHAAAAAAAAAAUAAAAHAAAABQAAAAEAAAAHAAAAAQAAAAAAAAAQAAAAAAAAAAAA
+AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/GAAAAAQAAAD9//8+2szMPZmZmb6amRk/
+wczMvZqZmb6amRk/2szMPZqZmb79//8+2szMPWZm5r79//8+u8zMvWZm5r6amRk/2szMPWZm
+5r6amRk/wczMvWZm5r79//8+vMzMvZmZmb4kAAAAAAAAAAEAAAACAAAAAwAAAAQAAAAAAAAA
+AwAAAAAAAAACAAAABQAAAAQAAAADAAAABQAAAAMAAAACAAAABQAAAAIAAAABAAAABgAAAAEA
+AAAEAAAABgAAAAQAAAAFAAAABgAAAAUAAAABAAAABwAAAAAAAAAEAAAABwAAAAQAAAABAAAA
+BwAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAPxgA
+AAAEAAAA/f//PuHMzD1oZuY+nJkZP8PMzL1oZuY+nJkZP9vMzD1oZuY+m5kZP9vMzD2amZk+
+/f//PsPMzL1oZuY+/f//PsHMzL2amZk+/f//Pt7MzD2amZk+m5kZP8PMzL2amZk+JAAAAAAA
+AAABAAAAAgAAAAMAAAACAAAAAQAAAAMAAAAAAAAAAgAAAAQAAAAAAAAABQAAAAQAAAAFAAAA
+AQAAAAQAAAABAAAAAAAAAAYAAAAFAAAAAAAAAAYAAAAAAAAAAwAAAAYAAAADAAAABQAAAAcA
+AAABAAAABQAAAAcAAAAFAAAAAwAAAAcAAAADAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAA
+EAAAAAAAAAAAAAAAAAAAAAAAgD8YAAAABAAAAGdm5r7NzMw9+v//vpqZmb7RzMy9+v//vpqZ
+mb7PzMw9+v//vpqZmb7PzMw9m5kZv2dm5r7WzMy9+v//vmdm5r7BzMy9m5kZv2dm5r7NzMw9
+m5kZv5qZmb7BzMy9m5kZvyQAAAAAAAAAAQAAAAIAAAADAAAAAgAAAAEAAAADAAAAAAAAAAIA
+AAAEAAAAAAAAAAUAAAAEAAAABQAAAAEAAAAEAAAAAQAAAAAAAAAGAAAABQAAAAAAAAAGAAAA
+AAAAAAMAAAAGAAAAAwAAAAUAAAAHAAAAAQAAAAUAAAAHAAAABQAAAAMAAAAHAAAAAwAAAAEA
+AAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/GAAAAAQAAACamZk+
+2MzMPfr//75mZuY+vMzMvfr//75oZuY+2czMPfr//75oZuY+2MzMPZuZGb9oZuY+wczMvZuZ
+Gb+amZk+wczMvZuZGb+amZk+2MzMPZuZGb+amZk+wczMvfr//74kAAAAAAAAAAEAAAACAAAA
+AwAAAAIAAAABAAAAAwAAAAAAAAACAAAABAAAAAEAAAAFAAAABAAAAAUAAAADAAAABAAAAAMA
+AAABAAAABgAAAAUAAAAAAAAABgAAAAAAAAADAAAABgAAAAMAAAAFAAAABwAAAAAAAAAFAAAA
+BwAAAAUAAAABAAAABwAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA
+AAAAAAAAAACAPx4AAAAEAAAAmpkZv83MzD2amRk/Z2bmvtfMzL2amRk/Z2bmvs7MzD2amRk/
+AgAAv83MzD1oZuY+mpkZv9nMzL2amRk/mpkZv9fMzL1oZuY+mpkZv83MzD1oZuY+AgAAv9fM
+zL1oZuY+Z2bmvs7MzD0EAAA/Z2bmvtfMzL0EAAA/MAAAAAAAAAABAAAAAgAAAAMAAAAAAAAA
+AgAAAAQAAAAAAAAABQAAAAQAAAAFAAAAAQAAAAQAAAABAAAAAAAAAAYAAAAFAAAAAAAAAAYA
+AAAAAAAAAwAAAAYAAAADAAAABQAAAAcAAAABAAAABQAAAAcAAAAFAAAAAwAAAAgAAAAHAAAA
+AwAAAAgAAAACAAAAAQAAAAgAAAADAAAAAgAAAAkAAAABAAAABwAAAAkAAAAHAAAACAAAAAkA
+AAAIAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgD8eAAAA
+BAAAAGhm5j7XzMw9mpkZP5uZGT/BzMy9mpkZP5uZGT/YzMw9mpkZP/z//z7fzMw9aGbmPmhm
+5j7FzMy9mpkZP/z//z7BzMy9aGbmPpuZGT/YzMw9aGbmPpuZGT/BzMy9aGbmPmhm5j7fzMw9
+/f//Pmhm5j7CzMy9BAAAPzAAAAAAAAAAAQAAAAIAAAADAAAAAAAAAAIAAAAEAAAABQAAAAEA
+AAAEAAAAAQAAAAAAAAAGAAAABQAAAAMAAAAGAAAAAwAAAAIAAAAGAAAAAgAAAAEAAAAHAAAA
+AQAAAAUAAAAHAAAABQAAAAYAAAAHAAAABgAAAAEAAAAIAAAABAAAAAAAAAAIAAAAAAAAAAMA
+AAAIAAAAAwAAAAUAAAAJAAAABQAAAAQAAAAJAAAABAAAAAgAAAAJAAAACAAAAAUAAAAQAAAA
+AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/HgAAAAQAAACamRm/zMzMPWdm
+5r4CAAC/2MzMvWdm5r74//++zczMPWdm5r5nZua+wczMvZqZGb+amRm/wczMvZqZGb+amRm/
+zMzMPZqZGb9nZua+zczMPZqZGb+amRm/xMzMvWdm5r5nZua+18zMvfj//75nZua+zczMPfj/
+/74wAAAAAAAAAAEAAAACAAAAAwAAAAEAAAAEAAAABQAAAAMAAAAEAAAABQAAAAQAAAAAAAAA
+BQAAAAAAAAACAAAABgAAAAMAAAAFAAAABgAAAAUAAAACAAAABwAAAAAAAAAEAAAABwAAAAQA
+AAABAAAABwAAAAEAAAAAAAAACAAAAAMAAAAGAAAACAAAAAIAAAABAAAACAAAAAEAAAADAAAA
+CQAAAAYAAAACAAAACQAAAAIAAAAIAAAACQAAAAgAAAAGAAAAEAAAAAAAAAAAAAAAAAAAAAAA
+AAAQAAAAAAAAAAAAAAAAAAAAAACAPx4AAAAEAAAAmpkZP8HMzL1mZua+Z2bmPrzMzL34//++
+aGbmPsHMzL2amRm/aGbmPtjMzD2amRm/mpkZP9nMzD2amRm/mpkZP9nMzD1mZua+mpkZP8HM
+zL2amRm/aGbmPtnMzD34//++/v//PtnMzD1mZua+/v//PrvMzL1mZua+MAAAAAAAAAABAAAA
+AgAAAAMAAAACAAAAAQAAAAQAAAACAAAAAwAAAAQAAAADAAAABQAAAAQAAAAFAAAAAAAAAAYA
+AAAAAAAAAgAAAAYAAAACAAAABAAAAAYAAAAEAAAAAAAAAAcAAAAFAAAAAwAAAAcAAAADAAAA
+AQAAAAgAAAAFAAAABwAAAAgAAAAHAAAAAQAAAAgAAAAAAAAABQAAAAkAAAABAAAAAAAAAAkA
+AAAAAAAACAAAAAkAAAAIAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA
+AAAAAAAAgD8YAAAABAAAAAAAAADYzMw9AQAAPwAAAADMzMy9BAAAP5qZmb7UzMy9BAAAPwAA
+AADUzMw9mpkZP5qZmb7QzMw9mpkZPwAAAADQzMy9mpkZP5qZmb7SzMw9AwAAP5qZmb7UzMy9
+mpkZPyQAAAAAAAAAAQAAAAIAAAABAAAAAAAAAAMAAAAEAAAAAwAAAAAAAAAFAAAAAwAAAAQA
+AAAFAAAAAgAAAAEAAAAFAAAAAQAAAAMAAAAGAAAAAAAAAAIAAAAGAAAAAgAAAAQAAAAGAAAA
+BAAAAAAAAAAHAAAABAAAAAIAAAAHAAAAAgAAAAUAAAAHAAAABQAAAAQAAAAQAAAAAAAAAAAA
+AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/GAAAAAQAAACbmZk+2czMPQAAAD+bmZk+
+xczMvQQAAD8AAAAAyszMvQQAAD+bmZk+1szMPZqZGT8AAAAA1szMPQEAAD8AAAAA0szMPZqZ
+GT8AAAAAzszMvZqZGT+bmZk+xszMvZqZGT8kAAAAAAAAAAEAAAACAAAAAQAAAAAAAAADAAAA
+BAAAAAMAAAAAAAAABAAAAAAAAAACAAAABQAAAAMAAAAEAAAABQAAAAQAAAACAAAABgAAAAMA
+AAAFAAAABgAAAAUAAAACAAAABgAAAAIAAAABAAAABwAAAAEAAAADAAAABwAAAAMAAAAGAAAA
+BwAAAAYAAAABAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAPxgA
+AAAEAAAAmpkZv8vMzD2amZk+AQAAv9fMzL2amZk+AQAAv83MzD2amZk+mpkZv8vMzD0AAAAA
+mpkZv87MzL0AAAAA/v//vs3MzD0AAAAAmpkZv9TMzL2amZk+AQAAv9fMzL0AAAAAJAAAAAAA
+AAABAAAAAgAAAAMAAAAEAAAAAAAAAAMAAAAAAAAAAgAAAAUAAAAEAAAAAwAAAAUAAAADAAAA
+AgAAAAUAAAACAAAAAQAAAAYAAAAAAAAABAAAAAYAAAAEAAAAAQAAAAYAAAABAAAAAAAAAAcA
+AAABAAAABAAAAAcAAAAEAAAABQAAAAcAAAAFAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAA
+EAAAAAAAAAAAAAAAAAAAAAAAgD8YAAAABAAAAJqZGb/MzMw9AAAAAAIAAL/YzMy9AAAAAP//
+/77NzMw9AAAAAPr//77NzMw9mpmZvpqZGb/MzMw9mpmZvpqZGb/IzMy9mpmZvgIAAL/YzMy9
+mpmZvpqZGb/NzMy9AAAAACQAAAAAAAAAAQAAAAIAAAADAAAAAgAAAAEAAAADAAAAAAAAAAIA
+AAAEAAAABQAAAAAAAAAEAAAAAAAAAAMAAAAEAAAAAwAAAAUAAAAGAAAAAQAAAAUAAAAGAAAA
+BQAAAAMAAAAGAAAAAwAAAAEAAAAHAAAAAAAAAAUAAAAHAAAABQAAAAEAAAAHAAAAAQAAAAAA
+AAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/GAAAAAQAAAD9//8+
+3MzMPQAAAACamRk/wczMvQAAAACamRk/2czMPQAAAACamRk/2czMPZqZmb6amRk/wczMvZqZ
+mb79//8+vMzMvZmZmb79//8+2czMPZqZmb79//8+vszMvQAAAAAkAAAAAAAAAAEAAAACAAAA
+AwAAAAIAAAABAAAAAwAAAAAAAAACAAAABAAAAAEAAAAFAAAABAAAAAUAAAADAAAABAAAAAMA
+AAABAAAABgAAAAUAAAAAAAAABgAAAAAAAAADAAAABgAAAAMAAAAFAAAABwAAAAAAAAAFAAAA
+BwAAAAUAAAABAAAABwAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA
+AAAAAAAAAACAPxgAAAAEAAAA/f//Pt7MzD2amZk+mpkZP8LMzL2amZk+mpkZP9vMzD2amZk+
+mpkZP9vMzD0AAAAA/f//PsLMzL2amZk+/f//Pr7MzL0AAAAAmpkZP8LMzL0AAAAA/f//Pt7M
+zD0AAAAAJAAAAAAAAAABAAAAAgAAAAMAAAACAAAAAQAAAAMAAAAAAAAAAgAAAAQAAAAAAAAA
+BQAAAAQAAAAFAAAAAQAAAAQAAAABAAAAAAAAAAYAAAABAAAABQAAAAYAAAAFAAAAAwAAAAYA
+AAADAAAAAQAAAAcAAAAFAAAAAAAAAAcAAAAAAAAAAwAAAAcAAAADAAAABQAAABAAAAAAAAAA
+AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgD8YAAAABAAAAJqZmT7DzMy9+v//vpqZ
+mT7WzMw9m5kZv5qZmT7ZzMw9+v//vgAAAADTzMw9m5kZvwAAAADDzMy9m5kZvwAAAADTzMw9
++v//vgAAAADLzMy9+v//vpqZmT7DzMy9m5kZvyQAAAAAAAAAAQAAAAIAAAADAAAAAgAAAAEA
+AAADAAAAAQAAAAQAAAAFAAAAAgAAAAMAAAAFAAAAAwAAAAQAAAAFAAAAAAAAAAIAAAAGAAAA
+BAAAAAAAAAAGAAAAAAAAAAUAAAAGAAAABQAAAAQAAAAHAAAAAAAAAAQAAAAHAAAABAAAAAEA
+AAAHAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIA/
+GAAAAAQAAAAAAAAAyczMvfr//74AAAAA0czMPZuZGb8AAAAA08zMPfr//76amZm+z8zMPZuZ
+Gb+amZm+wczMvZuZGb+amZm+z8zMPfr//76amZm+0czMvfr//74AAAAAwczMvZuZGb8kAAAA
+AAAAAAEAAAACAAAAAwAAAAIAAAABAAAAAwAAAAEAAAAEAAAABQAAAAIAAAADAAAABQAAAAMA
+AAAEAAAABQAAAAAAAAACAAAABgAAAAQAAAAAAAAABgAAAAAAAAAFAAAABgAAAAUAAAAEAAAA
+BwAAAAAAAAAEAAAABwAAAAQAAAABAAAABwAAAAEAAAAAAAAA]]></BinaryString>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<bool name="UsePartColor">true</bool>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1.20000017</X>
+					<Y>0.200000301</Y>
+					<Z>1.20000005</Z>
+				</Vector3>
+			</Properties>
+		</Item>
+		<Item class="ScreenGui" referent="RBX73E68A09BCF546F0A8F2A6E887B419F3">
+			<Properties>
+				<string name="Name">TicketGui</string>
+			</Properties>
+			<Item class="LocalScript" referent="RBXBF92F99F38C8451A8E7765A3BEEFD2FC">
+				<Properties>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">LocalControl</string>
+					<ProtectedString name="Source"><![CDATA[frame = script.Parent:WaitForChild('ScrollingFrame')
+Tbutton = script.Parent.TweenButton
+Hbutton = script.Parent.HideButton
+player = game.Players.LocalPlayer
+char = player.Character
+for k,v in pairs(frame:GetChildren()) do
+	v.MouseButton1Click:connect(function()
+		if game.ReplicatedStorage.colors then
+			game.ReplicatedStorage.colors:InvokeServer(v.Name)
+		end
+	end)
+end
+function linearblend(r1,g1,b1,r2,g2,b2,f)
+	local r = r1+f*(r2-r1)
+	local g = g1+f*(g2-g1)
+	local b = b1+f*(b2-b1)
+	return Color3.new(r,g,b)
+end
+function blend(destination,directory)
+	if destination:lower() == "red" then
+		for f=1,10 do
+			local f = f/10
+			if directory == "T" then
+				Tbutton.TextColor3 = linearblend(1,1,1,1,0,0,f)
+			elseif directory == "H" then
+				Hbutton.TextColor3 = linearblend(1,1,1,1,1,0,f)
+			end
+			wait()
+		end
+	elseif destination:lower() == "white" then
+		for f=1,10 do
+			local f = f/10
+			if directory == "T" then
+				Tbutton.TextColor3 = linearblend(1,0,0,1,1,1,f)
+			elseif directory == "H" then
+				Hbutton.TextColor3 = linearblend(1,1,0,1,1,1,f)
+			end
+			wait()
+		end
+	end
+end
+tweenDebounce = false
+hideDebounce = false
+open = false
+hidden = false
+script.Parent.TweenButton.MouseButton1Click:connect(function()
+	if tweenDebounce == true then return end
+	tweenDebounce = true
+	if open ==  false then
+		Tbutton.Text = "Close"
+		local blendCor = coroutine.wrap(blend)
+		blendCor("rEd","T")
+		script.Parent.ScrollingFrame:TweenPosition(UDim2.new(1,-50,0.5, 90),"Out","Bounce",0.5,false)
+		script.Parent.HideButton:TweenPosition(UDim2.new(1,-50,0.5,340),"Out","Bounce",0.5,false)
+		open = true
+	elseif open == true then
+		Tbutton.Text = "Glowband"
+		local blendCor = coroutine.wrap(blend)
+		blendCor("wHiTe","T")
+		script.Parent.ScrollingFrame:TweenPosition(UDim2.new(1,0,0.5,90),"Out","Bounce",0.5,false)
+		script.Parent.HideButton:TweenPosition(UDim2.new(1,0,0.5,340),"Out","Bounce",0.5,false)
+		open = false
+	end
+	tweenDebounce = false
+end)
+
+script.Parent.HideButton.MouseButton1Click:connect(function()
+	if hideDebounce == true then return end
+	hideDebounce = true
+	if hidden ==  false then
+		Hbutton.Text = "Show"
+		local blendCor = coroutine.wrap(blend)
+		blendCor("WhItE","H")
+		game.ReplicatedStorage.hide:InvokeServer(1)
+		hidden = true
+	elseif hidden == true then
+		Hbutton.Text = "Hide"
+		local blendCor = coroutine.wrap(blend)
+		blendCor("ReD","H")
+		game.ReplicatedStorage.hide:InvokeServer(0)
+		hidden = false
+	end
+	hideDebounce = false
+end)]]></ProtectedString>
+				</Properties>
+			</Item>
+			<Item class="TextButton" referent="RBX0A768E013E7440B290C31459DB73F3D2">
+				<Properties>
+					<bool name="Active">true</bool>
+					<bool name="AutoButtonColor">true</bool>
+					<Color3 name="BackgroundColor3">4278190080</Color3>
+					<float name="BackgroundTransparency">0.25</float>
+					<Color3 name="BorderColor3">4279970357</Color3>
+					<int name="BorderSizePixel">0</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<token name="Font">4</token>
+					<token name="FontSize">4</token>
+					<bool name="Modal">false</bool>
+					<string name="Name">TweenButton</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>1</XS>
+						<XO>-50</XO>
+						<YS>0.5</YS>
+						<YO>75</YO>
+					</UDim2>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">true</bool>
+					<bool name="Selected">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<UDim2 name="Size">
+						<XS>0</XS>
+						<XO>50</XO>
+						<YS>0</YS>
+						<YO>15</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<token name="Style">0</token>
+					<string name="Text">Glowband</string>
+					<Color3 name="TextColor3">4294967295</Color3>
+					<bool name="TextScaled">false</bool>
+					<Color3 name="TextStrokeColor3">4278190080</Color3>
+					<float name="TextStrokeTransparency">1</float>
+					<float name="TextTransparency">0</float>
+					<bool name="TextWrapped">false</bool>
+					<token name="TextXAlignment">2</token>
+					<token name="TextYAlignment">1</token>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+			</Item>
+			<Item class="ScrollingFrame" referent="RBXF3144745B62C4866A190A9B84B531024">
+				<Properties>
+					<bool name="Active">false</bool>
+					<Color3 name="BackgroundColor3">4278190080</Color3>
+					<float name="BackgroundTransparency">0.25</float>
+					<Color3 name="BorderColor3">4279970357</Color3>
+					<int name="BorderSizePixel">0</int>
+					<Content name="BottomImage"><url>http://www.roblox.com/asset/?id=268179880</url></Content>
+					<Vector2 name="CanvasPosition">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<UDim2 name="CanvasSize">
+						<XS>0</XS>
+						<XO>0</XO>
+						<YS>0</YS>
+						<YO>300</YO>
+					</UDim2>
+					<bool name="ClipsDescendants">true</bool>
+					<bool name="Draggable">false</bool>
+					<Content name="MidImage"><url>http://www.roblox.com/asset/?id=268179909</url></Content>
+					<string name="Name">ScrollingFrame</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>1</XS>
+						<XO>0</XO>
+						<YS>0.5</YS>
+						<YO>90</YO>
+					</UDim2>
+					<float name="Rotation">0</float>
+					<int name="ScrollBarThickness">5</int>
+					<bool name="ScrollingEnabled">true</bool>
+					<bool name="Selectable">true</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<UDim2 name="Size">
+						<XS>0</XS>
+						<XO>50</XO>
+						<YS>0</YS>
+						<YO>250</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<Content name="TopImage"><url>http://www.roblox.com/asset/?id=268179857</url></Content>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+			</Item>
+			<Item class="TextButton" referent="RBXB0A1BEC43AA84C6EB89BBD40997E2EDC">
+				<Properties>
+					<bool name="Active">true</bool>
+					<bool name="AutoButtonColor">true</bool>
+					<Color3 name="BackgroundColor3">4278190080</Color3>
+					<float name="BackgroundTransparency">0.25</float>
+					<Color3 name="BorderColor3">4279970357</Color3>
+					<int name="BorderSizePixel">0</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<token name="Font">2</token>
+					<token name="FontSize">4</token>
+					<bool name="Modal">false</bool>
+					<string name="Name">HideButton</string>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>1</XS>
+						<XO>0</XO>
+						<YS>0.5</YS>
+						<YO>340</YO>
+					</UDim2>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">true</bool>
+					<bool name="Selected">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<UDim2 name="Size">
+						<XS>0</XS>
+						<XO>50</XO>
+						<YS>0</YS>
+						<YO>15</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<token name="Style">0</token>
+					<string name="Text">Hide</string>
+					<Color3 name="TextColor3">4294967040</Color3>
+					<bool name="TextScaled">false</bool>
+					<Color3 name="TextStrokeColor3">4278190080</Color3>
+					<float name="TextStrokeTransparency">1</float>
+					<float name="TextTransparency">0</float>
+					<bool name="TextWrapped">false</bool>
+					<token name="TextXAlignment">2</token>
+					<token name="TextYAlignment">1</token>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+</roblox>
